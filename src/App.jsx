@@ -1,10 +1,46 @@
+import { ModuleGraph } from "vite";
+
+const groceryList = [
+  { 
+    id: 1,
+    name: "Kopi",
+    quantity: 1,
+    checked: true
+  },
+  {
+    id: 2,
+    name: "Gula Pasir",
+    quantity: 5,
+    checked: true
+  },
+  {
+
+  }
+
+];
+
 export default function App() {
 
   return (
   <div className="app">
     <Header />
-  
-    <form className="add-form">
+
+    <Form />
+    
+    <GroceryList />
+
+    <Footer />
+  </div>
+    
+  );
+
+  function Header(){
+    return <h1>Catatan Belanjaku 📝</h1>
+  }
+
+  function Form (){
+    return (
+      <form className="add-form">
       <h3>Hari ini belanja apa kita?</h3>
       <div>
         <select>
@@ -18,6 +54,14 @@ export default function App() {
       </div>
       <button>Tambah</button>
     </form>
+
+    );
+  }
+}
+
+  function GroceryList(){
+    return (
+    <>
     <div className="list">
       <ul>
         <li>
@@ -45,13 +89,9 @@ export default function App() {
       </select>
       <button>Bersihkan Daftar</button>
     </div>
-    <footer className="stats">Ada 10 barang di daftar belanjaan, 5 barang sudah dibeli (50%)</footer>
-  </div>
-    
+    </>
   );
-
-  function Header(){
-    return <h1>Catatan Belanjaku 📝</h1>
-  }
 }
-
+ function Footer(){
+  return  <footer className="stats">Ada 10 barang di daftar belanjaan, 5 barang sudah dibeli (50%)</footer>;
+ }
