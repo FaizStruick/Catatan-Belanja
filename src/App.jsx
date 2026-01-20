@@ -1,5 +1,3 @@
-import { ModuleGraph } from "vite";
-
 const groceryList = [
   { 
     id: 1,
@@ -14,9 +12,11 @@ const groceryList = [
     checked: true
   },
   {
-
-  }
-
+    id: 3,
+    name: "Air Mineral",
+    quantity: 3,
+    checked: false
+  },
 ];
 
 export default function App() {
@@ -27,7 +27,7 @@ export default function App() {
 
     <Form />
     
-    <GroceryList />
+    <GroceryList items={groceryList} />
 
     <Footer />
   </div>
@@ -59,26 +59,18 @@ export default function App() {
   }
 }
 
-  function GroceryList(){
+  function GroceryList({items}){
     return (
     <>
     <div className="list">
       <ul>
-        <li>
-          <input type="checkbox" checked="true" />
-          <span style={{ textDecoration: 'line-through' }}>1 Kopi</span>
-          <button>&times;</button>
+        {items.map((item) => ( 
+          <li key={item.id}>
+            <input type="checkbox" checked={item.checked} readOnly />
+            <span style={{ textDecoration: 'line-through' }}>{item.quantity} {item.name}</span>
+            <button>&times;</button>
         </li>
-        <li>
-          <input type="checkbox" />
-          <span>5 Gula Pasir</span>
-          <button>&times;</button>
-        </li>
-        <li>
-          <input type="checkbox" />
-          <span>3 Air Mineral</span>
-          <button>&times;</button>
-        </li>
+        ))}
       </ul>
     </div>
     <div className="actions">
@@ -93,5 +85,8 @@ export default function App() {
   );
 }
  function Footer(){
-  return  <footer className="stats">Ada 10 barang di daftar belanjaan, 5 barang sudah dibeli (50%)</footer>;
+  return (
+  <footer className="stats">Ada 10 barang di daftar belanjaan, 5 barang sudah dibeli (50%)
+  </footer>
+  );
  }
