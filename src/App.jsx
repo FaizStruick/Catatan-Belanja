@@ -23,13 +23,19 @@ const groceryList = [
 
 export default function App() {
 
+  const [items, setItems] = useState(groceryList);
+
+  function handleAddItem(item){
+    setItems([...items, item]);
+  }
+
   return (
   <div className="app">
     <Header />
 
-    <Form />
+    <Form onAddItem={handleAddItem} />
     
-    <GroceryList items={groceryList} />
+    <GroceryList items={items} />
 
     <Footer />
   </div>
@@ -40,7 +46,7 @@ export default function App() {
     return <h1>Catatan Belanjaku 📝</h1>
   }
 
-  function Form (){
+  function Form ({onAddItem}){
 
     const [name, setName] = useState('');
     const [quantity, setQuantity] = useState(1);
@@ -51,6 +57,8 @@ export default function App() {
       if(!name) return;
       
       const newItem = {name, quantity, checked: false,  id: Date.now()};
+
+      onAddItem(newItem);
 
       console.log(newItem);
 
