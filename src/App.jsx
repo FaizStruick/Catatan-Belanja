@@ -38,6 +38,10 @@ export default function App() {
     setItems((items) => items.map(item => item.id == id ? {...item, checked : !item.checked} : item));
   }
 
+  function handleClearItems(){
+    setItems([]);
+  }
+
   return (
   <div className="app">
     <Header />
@@ -45,7 +49,7 @@ export default function App() {
     <Form onAddItem={handleAddItem} />
 
 
-    <GroceryList items={items} onDeleteItem = {handleDeleteItem} onToggleItem = {handleToggleItem} />
+    <GroceryList items={items} onDeleteItem = {handleDeleteItem} onToggleItem = {handleToggleItem} onClearItems = {handleClearItems} />
 
     <Footer />
 
@@ -98,14 +102,14 @@ export default function App() {
   }
 }
 
-  function GroceryList({items, onDeleteItem, onToggleItem}){
+  function GroceryList({items, onDeleteItem, onToggleItem, onClearItems}){
     return (
     <>
     <div className="list">
       <ul>
         {items.map((item) => ( 
           
-          <Item item={item} key={item.id} onDeleteItem = {onDeleteItem} onToggleItem = {onToggleItem} />
+          <Item item={item} key={item.id} onDeleteItem = {onDeleteItem} onToggleItem = {onToggleItem} onClearItems = {onClearItems}/>
 
         ))}
       </ul>
@@ -116,13 +120,13 @@ export default function App() {
         <option value="name">Urutkan berdasarkan nama barang</option>
         <option value="checked">Urutkan berdasarkan ceklis</option>
       </select>
-      <button>Bersihkan Daftar</button>
+      <button onClick= {onClearItems} >Bersihkan Daftar</button>
     </div>
     </>
   );
 }
 
-  function Item({item, onDeleteItem, onToggleItem}){
+  function Item({item, onDeleteItem, onToggleItem, onClearItems}){
     return (
       <li key={item.id}>
             <input type="checkbox" checked= {item.checked} onChange={() => onToggleItem(item.id)}/>
